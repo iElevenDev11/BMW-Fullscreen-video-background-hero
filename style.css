@@ -1,0 +1,364 @@
+:root {
+  --overlay-color: rgba(0, 15, 30, 0.45);
+  --accent: #0066cc;
+  --accent-secondary: #00aaff;
+  --bmw-blue: #0066cc;
+  --max-width: 1100px;
+  --gap: 1rem;
+}
+
+/* Basic reset */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  color: #fff;
+  background: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* HERO LAYOUT */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* BMW-inspired loading skeleton */
+.hero__skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    #001122 0%,
+    #003366 25%,
+    #0066cc 50%,
+    #003366 75%,
+    #001122 100%
+  );
+  background-size: 400% 400%;
+  animation: bmwShimmer 3s ease-in-out infinite;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.hero__skeleton.hidden {
+  opacity: 0;
+}
+
+@keyframes bmwShimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Loading spinner */
+.hero__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.hero__loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* VIDEO: cover and keep aspect */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+.hero__video.loaded {
+  opacity: 1;
+}
+
+/* Overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-color);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* content that sits above video */
+.hero__content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--max-width);
+  padding: clamp(1rem, 3vw, 3rem);
+  text-align: center;
+  display: grid;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.hero__eyebrow {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3.6rem);
+  line-height: 1.02;
+  font-weight: 700;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.hero__subtitle {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  opacity: 0.95;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__cta {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--bmw-blue) 0%,
+    var(--accent-secondary) 100%
+  );
+  border: 0;
+  color: #fff;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 102, 204, 0.4);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.hero__cta:hover::before {
+  left: 100%;
+}
+
+.hero__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 102, 204, 0.6);
+  background: linear-gradient(135deg, #0077dd 0%, #00bbff 100%);
+}
+
+/* BMW Quality indicator */
+.quality-indicator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 204, 0.9),
+    rgba(0, 170, 255, 0.9)
+  );
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(0, 102, 204, 0.5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 4;
+  backdrop-filter: blur(8px);
+}
+
+/* Controls */
+.hero__controls {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  background: rgba(0, 102, 204, 0.15);
+  color: #fff;
+  border: 1px solid rgba(0, 102, 204, 0.3);
+  padding: 0.5rem 0.7rem;
+  border-radius: 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.control-btn:hover {
+  background: rgba(0, 102, 204, 0.25);
+  border-color: rgba(0, 102, 204, 0.5);
+  transform: translateY(-1px);
+}
+
+.control-btn[aria-pressed="true"] {
+  background: var(--bmw-blue);
+  border-color: var(--bmw-blue);
+  color: #fff;
+}
+
+/* Fallbacks for older browsers */
+.no-grid .hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-clamp .hero__title {
+  font-size: 2.5rem;
+}
+
+.no-clamp .hero__subtitle {
+  font-size: 1.1rem;
+}
+
+@supports not (inset: 0) {
+  .hero__video,
+  .hero__skeleton,
+  .hero::before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@supports not (backdrop-filter: blur(4px)) {
+  .control-btn,
+  .quality-indicator {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video {
+    animation: none;
+  }
+  .hero__title,
+  .hero__subtitle {
+    transition: none;
+  }
+  .spinner {
+    animation: none;
+  }
+  .hero__skeleton {
+    animation: none;
+  }
+}
+
+/* Small screens tweak */
+@media (max-width: 600px) {
+  .hero__title {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
+  .hero__content {
+    padding: 1.25rem;
+  }
+  .quality-indicator {
+    display: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero::before {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .control-btn {
+    border: 2px solid #fff;
+  }
+}
+
+/* Print styles */
+@media print {
+  .hero__video,
+  .hero__controls,
+  .quality-indicator {
+    display: none;
+  }
+  .hero {
+    background: #fff;
+    color: #000;
+    min-height: auto;
+  }
+}

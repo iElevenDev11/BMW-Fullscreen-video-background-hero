@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Enhanced Fullscreen Video Background Hero</title>
+
+<!-- Preconnect to video CDN for faster loading -->
+<link rel="preconnect" href="https://cdn.example.com">
+<link rel="dns-prefetch" href="https://cdn.example.com">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="hero" aria-label="Introduction">
+  <!-- Loading skeleton -->
+  <div class="hero__skeleton" id="skeleton"></div>
+  
+  <!-- Loading spinner -->
+  <div class="hero__loading" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Quality indicator -->
+  <div class="quality-indicator" id="qualityIndicator">Loading...</div>
+
+  <!-- BMW Video Background with working sources -->
+  <video
+    class="hero__video"
+    id="bgVideo"
+    autoplay
+    muted
+    playsinline
+    loop
+    preload="auto"
+    poster="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1920&h=1080&fit=crop&q=80"
+    aria-hidden="true"
+  >
+    <!-- Multiple working video sources for reliability -->
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+    <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div class="hero__content">
+    <div class="hero__eyebrow">THE ULTIMATE DRIVING MACHINE</div>
+    <h1 class="hero__title">Engineered for Excellence</h1>
+    <p class="hero__subtitle">Pure driving pleasure redefined through innovative design, cutting-edge technology, and uncompromising performance that sets new standards.</p>
+
+    <div>
+      <a href="#explore" class="hero__cta">Discover BMW</a>
+    </div>
+
+    <div class="hero__controls" aria-hidden="false">
+      <button class="control-btn" id="muteBtn" type="button" aria-pressed="true" title="Toggle audio">🔇 Muted</button>
+      <button class="control-btn" id="playPauseBtn" type="button" aria-pressed="true" title="Pause background video">⏸ Pause</button>
+      <button class="control-btn" id="stopMotionBtn" type="button" aria-pressed="false" title="Pause motion">🛑 Pause Motion</button>
+      <button class="control-btn" id="qualityBtn" type="button" title="Change video quality">📺 Auto</button>
+    </div>
+  </div>
+</section>
+
+<script src="index.js"></script>
+
+<!-- USAGE NOTES:
+  - This enhanced version includes:
+    * Adaptive video quality based on connection speed
+    * Loading states with skeleton screens and spinners
+    * Comprehensive browser fallbacks and feature detection
+    * Performance optimizations with preconnect hints
+    * Enhanced accessibility and error handling
+    * Dynamic video format selection based on browser support
+  - Replace video URLs with your actual video files
+  - Customize quality levels and sources as needed
+  - Test across different connection speeds and browsers
+-->
+</body>
+</html>
